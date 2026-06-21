@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Stage } from './types';
 import Welcome from './components/Welcome';
-import MemoryGame from './components/MemoryGame';
 import BubblePop from './components/BubblePop';
 import DadJokes from './components/DadJokes';
 import FlyingLetter from './components/FlyingLetter';
@@ -27,13 +26,7 @@ export default function App() {
       <AnimatePresence mode="wait">
         {stage === 'welcome' && (
           <motion.div className="min-h-full" key="welcome" variants={containerVariants} initial="hidden" animate="visible" exit="exit">
-            <Welcome onNext={() => setStage('game')} />
-          </motion.div>
-        )}
-        
-        {stage === 'game' && (
-          <motion.div className="min-h-full" key="game" variants={containerVariants} initial="hidden" animate="visible" exit="exit">
-            <MemoryGame onNext={() => setStage('bubbles')} />
+            <Welcome onNext={() => setStage('bubbles')} />
           </motion.div>
         )}
 

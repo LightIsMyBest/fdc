@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface BubblePopProps {
   onNext: () => void;
@@ -16,6 +16,15 @@ const ATTRIBUTES = [
 export default function BubblePop({ onNext }: BubblePopProps) {
   const [poppedCount, setPoppedCount] = useState(0);
   const [bubbles, setBubbles] = useState(ATTRIBUTES.map((text, i) => ({ id: i, text, popped: false })));
+
+  useEffect(() => {
+    if (poppedCount === ATTRIBUTES.length) {
+      const timer = setTimeout(() => {
+        onNext();
+      }, 3500);
+      return () => clearTimeout(timer);
+    }
+  }, [poppedCount, onNext]);
 
   const popBubble = (index: number) => {
     if (bubbles[index].popped) return;
@@ -104,14 +113,11 @@ export default function BubblePop({ onNext }: BubblePopProps) {
              initial={{ opacity: 0, y: 20 }}
              animate={{ opacity: 1, y: 0 }}
              transition={{ delay: 1, duration: 1 }}
-             className="mt-16 z-20"
+             className="mt-16 z-20 text-center"
           >
-             <button
-                onClick={onNext}
-                className="px-8 py-3 bg-white/10 border-2 border-[#d4af37] text-[#d4af37] font-bold rounded-lg text-sm uppercase tracking-widest hover:bg-white/20 hover:shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all"
-             >
-                I have something else to say
-             </button>
+             <span className="text-[#d4af37] font-bold text-sm uppercase tracking-widest animate-pulse">
+                Continuing...
+             </span>
           </motion.div>
         )}
       </AnimatePresence>

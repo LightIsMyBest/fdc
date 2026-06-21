@@ -1,1 +1,1 @@
-export type Stage = 'welcome' | 'game' | 'bubbles' | 'jokes' | 'letter' | 'final';
+export type Stage = 'welcome' | 'bubbles' | 'jokes' | 'letter' | 'final';
